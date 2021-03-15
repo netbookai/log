@@ -9,6 +9,7 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
+	github.com/princjef/gomarkdoc v0.1.3 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.5.1 // indirect
 	golang.org/x/tools v0.0.0-20210107193943-4ed967dd8eff // indirect
