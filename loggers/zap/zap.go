@@ -35,22 +35,11 @@ func (l *logger) Log(ctx context.Context, level loggers.Level, skip int, args ..
 }
 
 func (l *logger) GetLevel() loggers.Level {
-
-	switch l.cfg.Level.Level() {
-	case zapcore.DebugLevel:
-		return loggers.DebugLevel
-	case zap.InfoLevel:
-		return loggers.InfoLevel
-	case zap.WarnLevel:
-		return loggers.WarnLevel
-	case zap.ErrorLevel:
-		return loggers.ErrorLevel
-	default:
-		return loggers.InfoLevel
-	}
+	return l.opt.Level
 }
 
 func (l *logger) SetLevel(level loggers.Level) {
+	l.opt.Level = level
 	l.cfg.Level.SetLevel(toZapLevel(level))
 }
 
@@ -80,7 +69,7 @@ func NewLogger(options ...loggers.Option) loggers.BaseLogger {
 
 	zapCfg := zap.Config{
 		Level:            zap.NewAtomicLevelAt(toZapLevel(opt.Level)),
-		OutputPaths:      []string{"stderr"},
+		OutputPaths:      []string{"stdout"},
 		ErrorOutputPaths: []string{"stderr"},
 
 		EncoderConfig: zapcore.EncoderConfig{
