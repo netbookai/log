@@ -88,6 +88,8 @@ func NewLogger(options ...loggers.Option) loggers.BaseLogger {
 
 	if opt.JSONLogs {
 		zapCfg.Encoding = "json"
+	} else {
+		zapCfg.Encoding = "console"
 	}
 	l, err := zapCfg.Build()
 
