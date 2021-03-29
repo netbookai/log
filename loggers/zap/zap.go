@@ -3,7 +3,6 @@ package zap
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/go-coldbrew/log/loggers"
 	"go.uber.org/zap"
@@ -11,26 +10,37 @@ import (
 )
 
 type logger struct {
-	logger *zap.Logger
+	logger *zap.SugaredLogger
 	opt    loggers.Options
 	cfg    zap.Config
 }
 
 func (l *logger) Log(ctx context.Context, level loggers.Level, skip int, args ...interface{}) {
 
-	msg := fmt.Sprint(args...)
+	//	var message string
+	ctxField := loggers.FromContext(ctx)
 	logger := l.logger
+
+	logger = logger.With(args...)
+
+	if ctxField != nil {
+		for k, v := range ctxField {
+			logger = logger.With(k, v)
+
+		}
+	}
+
 	switch level {
 	case loggers.DebugLevel:
-		logger.Debug(msg)
+		logger.Debug()
 	case loggers.InfoLevel:
-		logger.Info(msg)
+		logger.Info()
 	case loggers.WarnLevel:
-		logger.Warn(msg)
+		logger.Warn()
 	case loggers.ErrorLevel:
-		logger.Error(msg)
+		logger.Error()
 	default:
-		l.logger.Error(msg)
+		l.logger.Error()
 	}
 }
 
@@ -99,7 +109,7 @@ func NewLogger(options ...loggers.Option) loggers.BaseLogger {
 
 	}
 	return &logger{
-		logger: l,
+		logger: l.Sugar(),
 		opt:    opt,
 		cfg:    zapCfg,
 	}
