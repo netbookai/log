@@ -15,33 +15,40 @@ type logger struct {
 	cfg    zap.Config
 }
 
+//COLBREW_CALL_STACK_SIZE number stack frame involved between the logger call from application to zap call.
+const COLBREW_CALL_STACK_SIZE = 3
+
 func (l *logger) Log(ctx context.Context, level loggers.Level, skip int, args ...interface{}) {
 
-	//	var message string
-	ctxField := loggers.FromContext(ctx)
 	logger := l.logger
-
+	var msg interface{}
+	//if there are odd number of elements in args, first will be treated as a message and rest will
+	//be key value pair to log in json format
+	if len(args)%2 != 0 {
+		msg = args[0]
+		args = args[1:]
+	}
 	logger = logger.With(args...)
 
-	if ctxField != nil {
-		for k, v := range ctxField {
+	ctxFields := loggers.FromContext(ctx)
+	if ctxFields != nil {
+		for k, v := range ctxFields {
 			logger = logger.With(k, v)
-
 		}
 	}
 
+	logFunc := l.logger.Error
 	switch level {
 	case loggers.DebugLevel:
-		logger.Debug()
+		logFunc = logger.Debug
 	case loggers.InfoLevel:
-		logger.Info()
+		logFunc = logger.Info
 	case loggers.WarnLevel:
-		logger.Warn()
+		logFunc = logger.Warn
 	case loggers.ErrorLevel:
-		logger.Error()
-	default:
-		l.logger.Error()
+		logFunc = logger.Error
 	}
+	logFunc(msg)
 }
 
 func (l *logger) GetLevel() loggers.Level {
@@ -103,11 +110,13 @@ func NewLogger(options ...loggers.Option) loggers.BaseLogger {
 	}
 	l, err := zapCfg.Build()
 
+	l = l.WithOptions(zap.AddCallerSkip(COLBREW_CALL_STACK_SIZE))
 	if err != nil {
 		//should we fail? will use sugared log here
 		l, _ = zap.NewProduction()
 
 	}
+
 	return &logger{
 		logger: l.Sugar(),
 		opt:    opt,
