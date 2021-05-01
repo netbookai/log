@@ -14,6 +14,7 @@ func (l *logger) GetLevel() loggers.Level {
 }
 
 func (l *logger) SetLevel(loggers.Level) {
+
 }
 
 func (l *logger) Log(ctx context.Context, level loggers.Level, skip int, args ...interface{}) {
