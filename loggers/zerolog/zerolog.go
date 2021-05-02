@@ -82,11 +82,20 @@ func NewLogger(options ...loggers.Option) loggers.BaseLogger {
 	for _, f := range options {
 		f(&opt)
 	}
+
+	zerolog.CallerFieldName = opt.CallerFieldName
+	zerolog.LevelFieldName = opt.LevelFieldName
+
 	log := zerolog.New(os.Stdout).
 		With().
-		CallerWithSkipFrameCount(loggers.COLDBREW_CALL_STACK_SIZE + 2).
 		Logger().
 		Level(toZerologLevel(opt.Level))
+
+	if opt.CallerInfo {
+		log = log.With().
+			CallerWithSkipFrameCount(loggers.COLDBREW_CALL_STACK_SIZE + 2).
+			Logger()
+	}
 
 	return &logger{
 		logger: log,
