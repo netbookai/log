@@ -3,7 +3,7 @@ package log
 import (
 	"context"
 
-	"github.com/go-coldbrew/log/loggers"
+	"github.com/netbookai/log/loggers"
 )
 
 //SetLevel sets the log level to filter logs

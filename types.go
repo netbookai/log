@@ -3,7 +3,7 @@ package log
 import (
 	"context"
 
-	"github.com/go-coldbrew/log/loggers"
+	"github.com/netbookai/log/loggers"
 )
 
 // Logger interface is implemnted by the log implementation

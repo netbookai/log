@@ -5,7 +5,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/go-coldbrew/log/loggers"
+	"github.com/netbookai/log/loggers"
 )
 
 type logger struct {

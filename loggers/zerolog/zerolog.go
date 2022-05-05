@@ -4,7 +4,7 @@ import (
 	"context"
 	"os"
 
-	"github.com/go-coldbrew/log/loggers"
+	"github.com/netbookai/log/loggers"
 	"github.com/rs/zerolog"
 )
 

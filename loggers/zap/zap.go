@@ -4,7 +4,7 @@ package zap
 import (
 	"context"
 
-	"github.com/go-coldbrew/log/loggers"
+	"github.com/netbookai/log/loggers"
 	uzap "go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -107,7 +107,7 @@ func NewLogger(options ...loggers.Option) loggers.BaseLogger {
 	}
 	l, err := zapCfg.Build()
 
-	l = l.WithOptions(uzap.AddCallerSkip(loggers.COLBREW_CALL_STACK_SIZE))
+	l = l.WithOptions(uzap.AddCallerSkip(loggers.COLDBREW_CALL_STACK_SIZE))
 	if err != nil {
 		//should we fail? will use sugared log here
 		l, _ = uzap.NewProduction()

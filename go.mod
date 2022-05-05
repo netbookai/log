@@ -1,4 +1,4 @@
-module github.com/go-coldbrew/log
+module github.com/netbookai/log
 
 go 1.15
 
@@ -9,7 +9,7 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
-	github.com/rs/zerolog v1.21.0 // indirect
+	github.com/rs/zerolog v1.21.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.5.1 // indirect
 	go.uber.org/multierr v1.6.0 // indirect

@@ -4,8 +4,8 @@ package wrap
 import (
 	"context"
 
-	"github.com/go-coldbrew/log"
-	"github.com/go-coldbrew/log/loggers"
+	"github.com/netbookai/log"
+	"github.com/netbookai/log/loggers"
 
 	basegokit "github.com/go-kit/kit/log"
 )

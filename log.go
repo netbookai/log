@@ -4,8 +4,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/go-coldbrew/log/loggers"
-	"github.com/go-coldbrew/log/loggers/gokit"
+	"github.com/netbookai/log/loggers"
+	"github.com/netbookai/log/loggers/gokit"
 )
 
 var (

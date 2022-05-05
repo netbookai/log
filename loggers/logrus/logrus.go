@@ -7,8 +7,9 @@ import (
 	stdlog "log"
 	"os"
 
-	"github.com/go-coldbrew/log/loggers"
 	log "github.com/sirupsen/logrus"
+
+	"github.com/netbookai/log/loggers"
 )
 
 type logger struct {
