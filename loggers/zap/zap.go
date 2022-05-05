@@ -5,14 +5,14 @@ import (
 	"context"
 
 	"github.com/go-coldbrew/log/loggers"
-	"go.uber.org/zap"
+	uzap "go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
 
 type logger struct {
-	logger *zap.SugaredLogger
+	logger *uzap.SugaredLogger
 	opt    loggers.Options
-	cfg    zap.Config
+	cfg    uzap.Config
 }
 
 //COLBREW_CALL_STACK_SIZE number stack frame involved between the logger call from application to zap call.
@@ -66,11 +66,11 @@ func toZapLevel(level loggers.Level) zapcore.Level {
 	case loggers.DebugLevel:
 		return zapcore.DebugLevel
 	case loggers.InfoLevel:
-		return zap.InfoLevel
+		return uzap.InfoLevel
 	case loggers.WarnLevel:
-		return zap.WarnLevel
+		return uzap.WarnLevel
 	case loggers.ErrorLevel:
-		return zap.ErrorLevel
+		return uzap.ErrorLevel
 	default:
 		return zapcore.ErrorLevel
 	}
@@ -84,8 +84,8 @@ func NewLogger(options ...loggers.Option) loggers.BaseLogger {
 		f(&opt)
 	}
 
-	zapCfg := zap.Config{
-		Level:            zap.NewAtomicLevelAt(toZapLevel(opt.Level)),
+	zapCfg := uzap.Config{
+		Level:            uzap.NewAtomicLevelAt(toZapLevel(opt.Level)),
 		OutputPaths:      []string{"stdout"},
 		ErrorOutputPaths: []string{"stderr"},
 
@@ -110,10 +110,10 @@ func NewLogger(options ...loggers.Option) loggers.BaseLogger {
 	}
 	l, err := zapCfg.Build()
 
-	l = l.WithOptions(zap.AddCallerSkip(COLBREW_CALL_STACK_SIZE))
+	l = l.WithOptions(uzap.AddCallerSkip(COLBREW_CALL_STACK_SIZE))
 	if err != nil {
 		//should we fail? will use sugared log here
-		l, _ = zap.NewProduction()
+		l, _ = uzap.NewProduction()
 
 	}
 
