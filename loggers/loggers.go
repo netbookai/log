@@ -9,6 +9,9 @@ import (
 	"strings"
 )
 
+//COLDBREW_CALL_STACK_SIZE number stack frame involved between the logger call from application to zap call.
+const COLDBREW_CALL_STACK_SIZE = 3
+
 // Level type
 type Level uint32
 

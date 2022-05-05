@@ -15,9 +15,6 @@ type logger struct {
 	cfg    uzap.Config
 }
 
-//COLBREW_CALL_STACK_SIZE number stack frame involved between the logger call from application to zap call.
-const COLBREW_CALL_STACK_SIZE = 3
-
 func (l *logger) Log(ctx context.Context, level loggers.Level, skip int, args ...interface{}) {
 
 	logger := l.logger
@@ -110,7 +107,7 @@ func NewLogger(options ...loggers.Option) loggers.BaseLogger {
 	}
 	l, err := zapCfg.Build()
 
-	l = l.WithOptions(uzap.AddCallerSkip(COLBREW_CALL_STACK_SIZE))
+	l = l.WithOptions(uzap.AddCallerSkip(loggers.COLBREW_CALL_STACK_SIZE))
 	if err != nil {
 		//should we fail? will use sugared log here
 		l, _ = uzap.NewProduction()
