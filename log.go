@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	"github.com/netbookai/log/loggers"
-	"github.com/netbookai/log/loggers/gokit"
+	"github.com/netbookai/log/loggers/zap"
 )
 
 var (
@@ -62,7 +62,7 @@ func NewLogger(log loggers.BaseLogger) Logger {
 func GetLogger() Logger {
 	if defaultLogger == nil {
 		once.Do(func() {
-			defaultLogger = NewLogger(gokit.NewLogger())
+			defaultLogger = NewLogger(zap.NewLogger())
 		})
 	}
 	return defaultLogger
