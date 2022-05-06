@@ -4,10 +4,8 @@ import (
 	"context"
 )
 
-type logsContext string
-
 var (
-	contextKey logsContext = "LogsContextKey"
+	LogsContextKey string = "LogsContextKey"
 )
 
 //LogFields contains all fields that have to be added to logs
@@ -30,10 +28,9 @@ func (o LogFields) Del(key string) {
 func AddToLogContext(ctx context.Context, key string, value interface{}) context.Context {
 	data := FromContext(ctx)
 	if data == nil {
-		ctx = context.WithValue(ctx, contextKey, make(LogFields))
-		data = FromContext(ctx)
+		ctx = context.WithValue(ctx, LogsContextKey, make(LogFields))
 	}
-	m := ctx.Value(contextKey)
+	m := ctx.Value(LogsContextKey)
 	if data, ok := m.(LogFields); ok {
 		data.Add(key, value)
 	}
@@ -45,7 +42,7 @@ func FromContext(ctx context.Context) LogFields {
 	if ctx == nil {
 		return nil
 	}
-	if h := ctx.Value(contextKey); h != nil {
+	if h := ctx.Value(LogsContextKey); h != nil {
 		if logData, ok := h.(LogFields); ok {
 			return logData
 		}
