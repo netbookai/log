@@ -87,16 +87,16 @@ func NewLogger(options ...loggers.Option) loggers.BaseLogger {
 		ErrorOutputPaths: []string{"stderr"},
 
 		EncoderConfig: zapcore.EncoderConfig{
-			MessageKey: "message",
+			MessageKey: "msg",
 
 			LevelKey:    opt.LevelFieldName,
-			EncodeLevel: zapcore.CapitalLevelEncoder,
+			EncodeLevel: zapcore.LowercaseLevelEncoder,
 
 			TimeKey:    opt.TimestampFieldName,
-			EncodeTime: zapcore.ISO8601TimeEncoder,
+			EncodeTime: zapcore.EpochTimeEncoder,
 
 			CallerKey:    opt.CallerFieldName,
-			EncodeCaller: zapcore.FullCallerEncoder,
+			EncodeCaller: zapcore.ShortCallerEncoder,
 		},
 	}
 
