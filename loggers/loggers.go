@@ -101,7 +101,7 @@ var (
 		ReplaceStdLogger:   false,
 		JSONLogs:           true,
 		Level:              InfoLevel,
-		TimestampFieldName: "@timestamp",
+		TimestampFieldName: "ts",
 		LevelFieldName:     "level",
 		CallerInfo:         true,
 		CallerFileDepth:    2,
