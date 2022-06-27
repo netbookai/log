@@ -53,8 +53,8 @@ func FromContext(ctx context.Context) LogFields {
 func GetNewLogContextWithValue(ctx context.Context, key string, value interface{}) context.Context {
 	logfields := FromContext(ctx)
 	newLogFields := make(LogFields)
-	for key, val := range logfields {
-		newLogFields[key] = val
+	for k, v := range logfields {
+		newLogFields[k] = v
 	}
 
 	newLogFields[key] = value
